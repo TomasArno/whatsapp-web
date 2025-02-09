@@ -47,8 +47,8 @@ export class WhatsappService implements OnModuleInit {
     });
   }
 
-  async onModuleInit() {
-    await this.client.initialize();
+  onModuleInit() {
+    this.client.initialize();
   }
 
   async sendMessage(to: string, message: string): Promise<void> {

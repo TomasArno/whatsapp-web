@@ -5,7 +5,16 @@ import { ChatsService } from './chats.service';
 export class ChatsController {
   constructor(private readonly chatsService: ChatsService) {}
 
-  @Post('send/:number')
+  @Post('broadcast/message')
+  async sendMessageByNumbers(
+    @Body('numbers') numbers: string[],
+    @Body('message') message: string,
+  ) {
+    await this.chatsService.sendMessageByNumbers(numbers, message);
+    return { message: 'Messages sent' };
+  }
+
+  @Post(':number/message')
   async sendMessageByNumber(
     @Param('number') number: string,
     @Body('message') message: string,
@@ -14,7 +23,7 @@ export class ChatsController {
     return { message: 'Message sent', data };
   }
 
-  @Get('chat-id/:number')
+  @Get(':number')
   async getChatByNumber(@Param('number') number: string) {
     const id = await this.chatsService.getChatIdByNumber(number);
     return { data: id };

@@ -20,6 +20,19 @@ export class ChatsService {
   }
 
   /**
+   * Enviar un mensaje a un chat específico
+   * @param number Número de teléfono con código de país y área
+   * @param message Contenido del mensaje
+   */
+  async sendMessageByNumbers(numbers: string[], message: string) {
+    if (!message) throw new Error('El mensaje debe ser válido.');
+
+    for (const number of numbers) {
+      await this.sendMessageByNumber(number, message);
+    }
+  }
+
+  /**
    * Obtener el chat ID a partir de un número de teléfono
    * @param number Número de teléfono con código de país
    */
